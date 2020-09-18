@@ -1,0 +1,22 @@
+<a class="nav-link" routerLink="/livro">Novo Livro</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Título</th>
+      <th scope="col">Editora</th>
+      <th scope="col">Edição</th>
+      <th scope="col">Ano</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let livro of livros">
+      <th scope="row">{{livro.id}}</th>
+      <td>{{livro.titulo}}</td>
+      <td>{{livro.editora}}</td>
+      <td>{{livro.edicao}}</td>
+      <td>{{livro.anoPublicacao}}</td>
+    </tr>
+
+  </tbody>
+</table>
