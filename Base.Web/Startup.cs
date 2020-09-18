@@ -34,8 +34,8 @@ namespace Base.Web
             });
             services.AddCors(options =>
             {
-            options.AddPolicy("AllowAllOrigins",
-                builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                options.AddPolicy("AllowAllOrigins",
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
             services.AddDbContext<Contexto>(o => o.UseSqlServer(Configuration.GetConnectionString("DataBaseConn")));
             DependenceInjector.Registrar(services);
