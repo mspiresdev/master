@@ -31,7 +31,7 @@ export class CrudAutorComponent implements OnInit {
     }, (erro: any) => console.log(erro));
     this.createAutorForm.reset();
   }
-  limpaLivro() {
+  limpaAutor() {
 
     this.createAutorForm.reset();
   }

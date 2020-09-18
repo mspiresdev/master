@@ -1,1 +1,23 @@
-<p>crud-assunto works!</p>
+<form #assuntoForm="ngForm" (ngSubmit)="saveAssunto()" ngNativeValidate>
+
+  <div class="form-group">
+    <label for="descricao">Descrição:</label>
+    <input type="text" [(ngModel)]="assunto.descricao" class="form-control" id="descricao" name="descricao"
+           required
+           #descricao="ngModel">
+    <div *ngIf="descricao.invalid && (descricao.dirty || descricao.touched)"
+         class="alert alert-danger">
+
+      <div *ngIf="descricao.errors.required">
+        é obrigatório
+      </div>
+    </div>
+  </div>
+
+
+  <p>
+    <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="assuntoForm.invalid">Salvar</button>
+
+    <button class="btn btn-primary btn-lg btn-block" type="button" (click)="limpaAssunto()">Limpar</button>
+  </p>
+</form>

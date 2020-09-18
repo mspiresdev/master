@@ -17,11 +17,11 @@ export class AssuntoService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
-  getLivros(): Observable<Assunto[]> {
+  getAssuntos(): Observable<Assunto[]> {
     return this._httpClient.get<Assunto[]>(this.urlBase + 'assunto');
   }
 
-  insertLivro(assunto: Assunto): Observable<Assunto> {
+  insertAssunto(assunto: Assunto): Observable<Assunto> {
     return this._httpClient.post<Assunto>(this.urlBase + 'assunto', assunto, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
