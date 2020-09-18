@@ -15,6 +15,9 @@ namespace Base.Aplicacao
             CreateMap<PratoDTO, Prato>();
             CreateMap<Livro, LivroDTO>();
             CreateMap<LivroDTO, Livro>();
+
+            CreateMap<Autor, AutorDTO>();
+            CreateMap<AutorDTO, Autor>();
         }
     }
 }

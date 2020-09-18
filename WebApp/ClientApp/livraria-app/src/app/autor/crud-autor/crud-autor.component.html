@@ -1,0 +1,23 @@
+<form #autorForm="ngForm" (ngSubmit)="saveAutor()" ngNativeValidate>
+
+  <div class="form-group">
+    <label for="nome">Nome:</label>
+    <input type="text" [(ngModel)]="autor.nome" class="form-control" id="nome" name="nome"
+           required
+           #nome="ngModel">
+    <div *ngIf="nome.invalid && (nome.dirty || nome.touched)"
+         class="alert alert-danger">
+
+      <div *ngIf="nome.errors.required">
+        é obrigatório
+      </div>
+    </div>
+  </div>
+
+
+  <p>
+    <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="autorForm.invalid">Salvar</button>
+
+    <button class="btn btn-primary btn-lg btn-block" type="button" (click)="limpaAutor()">Limpar</button>
+  </p>
+</form>

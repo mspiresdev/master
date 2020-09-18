@@ -32,5 +32,8 @@ export class LivroCrudComponent implements OnInit {
     },(erro:any)=> console.log(erro));
     this.createLivroForm.reset();
   }
-  
+  limpaLivro() {
+   
+    this.createLivroForm.reset();
+  }
 }

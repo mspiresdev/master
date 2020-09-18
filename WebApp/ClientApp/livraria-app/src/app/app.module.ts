@@ -8,12 +8,20 @@ import { ListLivroComponent } from './livros/list-livro/list-livro.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LivroService } from './service/livro.service';
 import { LivroCrudComponent } from './livros/livro-crud/livro-crud.component';
+import { ListAutorComponent } from './autor/list-autor/list-autor.component';
+import { CrudAutorComponent } from './autor/crud-autor/crud-autor.component';
+import { CrudAssuntoComponent } from './assunto/crud-assunto/crud-assunto.component';
+import { ListAssuntoComponent } from './assunto/list-assunto/list-assunto.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListLivroComponent,
-    LivroCrudComponent
+    LivroCrudComponent,
+    ListAutorComponent,
+    CrudAutorComponent,
+    CrudAssuntoComponent,
+    ListAssuntoComponent
   ],
   imports: [
     BrowserModule,
