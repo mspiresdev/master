@@ -58,56 +58,28 @@
   </div>
 
   <div class="form-group">
-    <ng-multiselect-dropdown id="mm" name="mm" #mm="ngModel" [placeholder]="'custom placeholder'"
-                             [settings]="dropdownSettings"
-                             [data]="dropdownList"
-                             [(ngModel)]="selectedItems"
-                             
-                             (onSelect)="onItemSelect($event)"
-                             (onSelectAll)="onSelectAll($event)">
-    </ng-multiselect-dropdown>
+    <label for="autor">Autor:</label>
+    <select class="form-control" id="autor" name="autor" #autor="ngModel" [(ngModel)]="autorBase">
+      <option *ngFor="let autor of autors" [ngValue]="autor">{{autor.nome}}</option>
+    </select>
+    <div *ngFor="let autor of livro.autors">
+      <span>{{autor.nome}}</span><button (click)="remove(autor, livro.autors)">X</button>
+    </div>
+    <a class="btn btn-secondary" (click)="add(autorBase, livro.autors)">add</a>
   </div>
 
-
-  <!--div formGroupName="address">
-    <h3>Address</h3>
-
-    <label>
-      Street:
-      <input type="text" formControlName="street">
-    </label>
-
-    <label>
-      City:
-      <input type="text" formControlName="city">
-    </label>
-
-    <label>
-      State:
-      <input type="text" formControlName="state">
-    </label>
-
-    <label>
-      Zip Code:
-      <input type="text" formControlName="zip">
-    </label>
-  </div>-->
-  <!--<div formArrayName="aliases">
-    <h3>Aliases</h3> <button (click)="addAlias()">Add Alias</button>
-
-    <div *ngFor="let alias of aliases.controls; let i=index">
-       The repeated alias template
-      <label>
-        Alias:
-        <input type="text" [formControlName]="i">
-      </label>
+  <div class="form-group">
+    <label for="assunto">Assunto:</label>
+    <select class="form-control" id="assunto" name="assunto" #assunto="ngModel" [(ngModel)]="assuntoBase">
+      <option *ngFor="let assunto of assuntos" [ngValue]="assunto">{{assunto.descricao}}</option>
+    </select>
+    <div *ngFor="let assunto of livro.assuntos">
+      <span>{{assunto.descricao}}</span><button (click)="remove(assunto, livro.assuntos)">X</button>
     </div>
-  </div>-->
-  <!--<button type="submit" [disabled]="!livroForm.valid">Submit</button>
+    <a class="btn btn-secondary" (click)="add(assuntoBase, livro.assuntos)">add</a>
+  </div>
 
-
-    -->
-
+ 
   <p>
     <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="livroForm.invalid">Salvar</button>
 

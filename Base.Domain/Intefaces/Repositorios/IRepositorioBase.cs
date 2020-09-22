@@ -13,6 +13,7 @@ namespace Base.Domain.Intefaces.Repositorios
         void Excluir(TEntidade entidade);
         void Alterar(TEntidade entidade);
         TEntidade SelecionarPorId(int id);
+        IEnumerable<TEntidade> SelecionarAllPorId(int id);
         IEnumerable<TEntidade> SelecionarTodos();
     }
 }

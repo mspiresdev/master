@@ -12,7 +12,6 @@ namespace Base.Infra.Contextos
     public class Contexto : DbContext
     {
         
-
         public IDbContextTransaction Transaction { get; private set; }
 
         public Contexto(DbContextOptions<Contexto> options)
@@ -108,5 +107,6 @@ namespace Base.Infra.Contextos
                 .HasForeignKey(pc => pc.Id);
 
         }
+      
     }
 }

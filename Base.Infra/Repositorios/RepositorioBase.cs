@@ -21,7 +21,7 @@ namespace Base.Infra.Repositorios
             this.contexto = contexto;
         }
 
-        public void Alterar(TEntidade entidade)
+        public virtual void Alterar(TEntidade entidade)
         {
             contexto.InitTransacao();
             contexto.Set<TEntidade>().Attach(entidade);
@@ -29,7 +29,7 @@ namespace Base.Infra.Repositorios
             contexto.SendChanges();
         }
 
-        public void Excluir(int id)
+        public virtual void Excluir(int id)
         {
             var entidade = SelecionarPorId(id);
             if (entidade != null)
@@ -40,14 +40,14 @@ namespace Base.Infra.Repositorios
             }
         }
 
-        public void Excluir(TEntidade entidade)
+        public virtual void Excluir(TEntidade entidade)
         {
             contexto.InitTransacao();
             contexto.Set<TEntidade>().Remove(entidade);
             contexto.SendChanges();
         }
 
-        public int Incluir(TEntidade entidade)
+        public virtual int Incluir(TEntidade entidade)
         {
             contexto.InitTransacao();
             var id = contexto.Set<TEntidade>().Add(entidade).Entity.Id;
@@ -55,12 +55,17 @@ namespace Base.Infra.Repositorios
             return id;
         }
 
-        public TEntidade SelecionarPorId(int id)
+        public virtual TEntidade SelecionarPorId(int id)
         {
             return contexto.Set<TEntidade>().Find(id);
         }
 
-        public IEnumerable<TEntidade> SelecionarTodos()
+        public virtual IEnumerable<TEntidade> SelecionarAllPorId(int id)
+        {
+            return contexto.Set<TEntidade>().Where(u=> u.Id == id);
+        }
+
+        public virtual IEnumerable<TEntidade> SelecionarTodos()
         {
             return contexto.Set<TEntidade>().ToList();
         }

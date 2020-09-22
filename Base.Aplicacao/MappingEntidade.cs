@@ -20,6 +20,9 @@ namespace Base.Aplicacao
 
             CreateMap<Assunto, AssuntoDTO>();
             CreateMap<AssuntoDTO, Assunto>();
+
+            CreateMap<LivroAssunto, LivroAssuntoDTO>();
+            CreateMap<LivroAssuntoDTO, LivroAssunto>();
         }
     }
 }

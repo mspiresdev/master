@@ -6,8 +6,13 @@ import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import { LivroService } from '../../service/livro.service';
 import { Livro } from '../../model/livro';
+import { AutorService } from '../../service/autor.service';
+import { AssuntoService } from '../../service/assunto.service';
+import { Autor } from '../../model/autor';
 import * as alertify from 'alertifyjs';
 import { ENGINE_METHOD_ALL } from 'constants';
+import { map } from 'rxjs/operators';
+import { Assunto } from 'src/app/model/assunto';
 
 
 
@@ -19,47 +24,39 @@ import { ENGINE_METHOD_ALL } from 'constants';
 export class LivroCrudComponent implements OnInit {
   @ViewChild('livroForm') public createLivroForm: NgForm;
   constructor(private _livroService: LivroService,
+    private _autorService: AutorService,
+    private _assuntoService: AssuntoService,
     private _router: Router,
     private _route: ActivatedRoute) { }
   livro: Livro;
+  autors: Autor[];
+  assuntos: Assunto[];
+ 
+  bindDrop() {
+   
+    this._autorService.getAutors().subscribe(l => {
+      this.autors = l;
+      
+    });
+    
+    this._assuntoService.getAssuntos().subscribe(l => {
+      this.assuntos = l;
 
-
-  dropdownList = [];
-  selectedItems = [];
-  dropdownSettings: IDropdownSettings
+    });
+  }
   
   ngOnInit(): void {
-
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
-    this.selectedItems = [
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' }
-    ];
-   
-   
-   
+    
+    this.bindDrop();
     this._route.paramMap.subscribe(param => {
       this.livro = {
         id: 0,
         titulo: null,
         edicao: null,
         anoPublicacao: null,
-        editora: null
+        editora: null,
+        autors: [],
+        assuntos: []
       }
       const id = +param.get('id');
       if (id !== 0) {
@@ -70,7 +67,17 @@ export class LivroCrudComponent implements OnInit {
 
     });
   }
-
+  add(obj: object, listObj: object[]) {
+    
+    if (listObj !== undefined) {
+      if(listObj.filter(order => (order.id === obj.id)).length <= 0)
+        listObj.push(obj);
+    }
+  }
+  remove(obj: object, listObj: object[]) {
+    
+    listObj.splice(listObj.indexOf(obj), 1);
+  }
   saveLivro() {
     if (this.livro.id === 0 || this.livro.id === null){
       this._livroService.insertLivro(this.livro).subscribe((data: Livro) => {
