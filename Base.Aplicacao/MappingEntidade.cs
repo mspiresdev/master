@@ -18,6 +18,9 @@ namespace Base.Aplicacao
 
             CreateMap<Autor, AutorDTO>();
             CreateMap<AutorDTO, Autor>();
+
+            CreateMap<Assunto, AssuntoDTO>();
+            CreateMap<AssuntoDTO, Assunto>();
         }
     }
 }

@@ -3,7 +3,7 @@ import { Assunto } from '../model/assunto';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-
+import * as alertify from 'alertifyjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,21 +21,19 @@ export class AssuntoService {
     return this._httpClient.get<Assunto[]>(this.urlBase + 'assunto');
   }
 
-  insertAssunto(assunto: Assunto): Observable<Assunto> {
-    return this._httpClient.post<Assunto>(this.urlBase + 'assunto', assunto, this.httpOptions)
-      .pipe(catchError(this.handleError));
+  delAssunto(id: number): Observable<boolean> {
+    return this._httpClient.delete<boolean>(this.urlBase + 'assunto/' + id);
   }
 
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Erro ocorreu no lado do client
-      errorMessage = error.error.message;
-    } else {
-      // Erro ocorreu no lado do servidor
-      errorMessage = 'Código do erro: ${error.status}, ' + 'menssagem: ${error.message}';
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-  };
+  getAssunto(id: number): Observable<Assunto> {
+    return this._httpClient.get<Assunto>(this.urlBase + 'assunto/' + id);
+  }
+
+  insertAssunto(assunto: Assunto): Observable<Assunto> {
+    return this._httpClient.post<Assunto>(this.urlBase + 'assunto', assunto, this.httpOptions);
+  }
+
+  updateAssunto(assunto: Assunto): Observable<Assunto> {
+    return this._httpClient.put<Assunto>(this.urlBase + 'assunto', assunto, this.httpOptions);
+  }
 }

@@ -35,7 +35,7 @@ namespace Base.Web
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllOrigins",
-                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             });
             services.AddDbContext<Contexto>(o => o.UseSqlServer(Configuration.GetConnectionString("DataBaseConn")));
             DependenceInjector.Registrar(services);
@@ -61,6 +61,14 @@ namespace Base.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseCors("AllowAllOrigins");
+            app.Use(async (ctx, next) =>
+            {
+                await next();
+                if (ctx.Response.StatusCode == 204)
+                {
+                    ctx.Response.ContentLength = 0;
+                }
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

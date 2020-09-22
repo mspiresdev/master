@@ -1,4 +1,4 @@
-<a class="nav-link" routerLink="/autor">Novo Autor</a>
+<a class="nav-link" routerLink="/autor/0">Novo Autor</a>
 <table class="table">
   <thead>
     <tr>
@@ -11,6 +11,8 @@
     <tr *ngFor="let autor of autors">
       <th scope="row">{{autor.id}}</th>
       <td>{{autor.nome}}</td>
+      <td><a class="nav-link" routerLink="/autor/{{autor.id}}">Editar</a></td>
+      <td><a style="cursor: pointer;" class="nav-link" (click)="delete(autor.id)">X</a></td>
     </tr>
 
   </tbody>

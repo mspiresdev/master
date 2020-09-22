@@ -5,13 +5,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListLivroComponent } from './livros/list-livro/list-livro.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,  HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LivroService } from './service/livro.service';
 import { LivroCrudComponent } from './livros/livro-crud/livro-crud.component';
 import { ListAutorComponent } from './autor/list-autor/list-autor.component';
 import { CrudAutorComponent } from './autor/crud-autor/crud-autor.component';
 import { CrudAssuntoComponent } from './assunto/crud-assunto/crud-assunto.component';
 import { ListAssuntoComponent } from './assunto/list-assunto/list-assunto.component';
+import { HttpErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,10 @@ import { ListAssuntoComponent } from './assunto/list-assunto/list-assunto.compon
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [LivroService],
+  providers: [LivroService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpErrorInterceptor,
+    multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-<a class="nav-link" routerLink="/livro">Novo Livro</a>
+<a class="nav-link" routerLink="/livro/0">Novo Livro</a>
 <table class="table">
   <thead>
     <tr>
@@ -16,6 +16,8 @@
       <td>{{livro.editora}}</td>
       <td>{{livro.edicao}}</td>
       <td>{{livro.anoPublicacao}}</td>
+      <td><a class="nav-link" routerLink="/livro/{{livro.id}}">Editar</a></td>
+      <td><a style="cursor: pointer;" class="nav-link" (click)="delete(livro.id)">X</a></td>
     </tr>
 
   </tbody>

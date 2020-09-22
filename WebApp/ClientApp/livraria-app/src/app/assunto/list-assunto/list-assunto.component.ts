@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AssuntoService } from '../../service/assunto.service';
 import { Assunto } from '../../model/assunto';
+import * as alertify from 'alertifyjs';
+
 @Component({
   selector: 'app-list-assunto',
   templateUrl: './list-assunto.component.html',
@@ -16,6 +18,21 @@ export class ListAssuntoComponent implements OnInit {
       this.assuntos = l as Assunto[]
 
     });
+   
   }
 
+ 
+  delete(id: number) {
+   
+    this._assuntoService.delAssunto(id).subscribe((data: boolean) => {
+      if (data) {
+        alertify.success("Item Excluido");
+        this._assuntoService.getAssuntos().subscribe(l => {
+          this.assuntos = l as Assunto[]
+
+        });
+      }
+    });
+    
+  }
 }

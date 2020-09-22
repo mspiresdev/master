@@ -8,11 +8,13 @@ using Base.Web.Models;
 using Base.Domain.Entidades;
 using Base.Aplicacao.DTO;
 using Base.Aplicacao.Interfaces;
+using Microsoft.AspNetCore.Cors;
 
 namespace Base.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [EnableCors("AllowAllOrigins")]
     public class ControllerBase<Entidade, EntidadeDTO> : Controller
         where Entidade : EntidadeBase
         where EntidadeDTO : DTOBase
@@ -55,14 +57,16 @@ namespace Base.Web.Controllers
         }
 
         [HttpPost]
+        
         public IActionResult Incluir([FromBody] EntidadeDTO dado)
         {
             try
             {
-                return new OkObjectResult(app.Incluir(dado));
+                var result = app.Incluir(dado);
+                return new OkObjectResult(result);
             }
             catch (Exception ex)
-            {
+                {
                 return BadRequest(ex.Message);
             }
         }

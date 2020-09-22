@@ -12,20 +12,20 @@ const routes: Routes = [
     path: 'livros', component: ListLivroComponent
   },
   {
-    path: 'livro', component: LivroCrudComponent
+    path: 'livro/:id', component: LivroCrudComponent
   },
 
   {
     path: 'autors', component: ListAutorComponent
   },
   {
-    path: 'autor', component: CrudAutorComponent
+    path: 'autor/:id', component: CrudAutorComponent
   },
   {
     path: 'assuntos', component: ListAssuntoComponent
   },
   {
-    path: 'assunto', component: CrudAssuntoComponent
+    path: 'assunto/:id', component: CrudAssuntoComponent
   },
   {path:'', redirectTo:'/livros', pathMatch:'full'}
   ];
