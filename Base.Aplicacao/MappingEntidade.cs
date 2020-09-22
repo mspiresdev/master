@@ -11,8 +11,7 @@ namespace Base.Aplicacao
     {
         public MappingEntidade()
         {
-            CreateMap<Prato, PratoDTO>();
-            CreateMap<PratoDTO, Prato>();
+           
             CreateMap<Livro, LivroDTO>();
             CreateMap<LivroDTO, Livro>();
 

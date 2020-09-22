@@ -4,15 +4,17 @@ using System.Text;
 
 namespace Base.Domain.Entidades
 {
-    public class Assunto : EntidadeBase
+    public class LivroAutor : EntidadeBase
     {
-        public string Descricao { get; set; }
+       
 
         //
         public virtual Livro Livro { get; set; }
 
         public int? Livro_Id { get; set; }
 
-        public ICollection<LivroAssunto> LAssuntos { get; set; }
+        public virtual Autor Autor { get; set; }
+
+        public int? Autor_Id { get; set; }
     }
 }

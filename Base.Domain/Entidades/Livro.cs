@@ -10,6 +10,9 @@ namespace Base.Domain.Entidades
         public string Editora { get; set; }
         public int Edicao { get; set; }
         public string AnoPublicacao { get; set; }
+        public decimal Preco { get; set; }
+        public ICollection<LivroAutor> LAutors { get; set; }
+        public ICollection<LivroAssunto> LAssuntos { get; set; }
         //
 
     }

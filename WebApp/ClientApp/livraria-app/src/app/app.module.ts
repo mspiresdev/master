@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +14,7 @@ import { CrudAutorComponent } from './autor/crud-autor/crud-autor.component';
 import { CrudAssuntoComponent } from './assunto/crud-assunto/crud-assunto.component';
 import { ListAssuntoComponent } from './assunto/list-assunto/list-assunto.component';
 import { HttpErrorInterceptor } from './interceptors/error.interceptor';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -26,10 +28,13 @@ import { HttpErrorInterceptor } from './interceptors/error.interceptor';
   ],
   imports: [
     BrowserModule,
+    
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    CommonModule
   ],
   providers: [LivroService, {
     provide: HTTP_INTERCEPTORS,

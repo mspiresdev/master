@@ -18,6 +18,10 @@ namespace Base.Infra.Mapeamentos
             builder.Property(c => c.Editora).IsRequired().HasColumnName("Editora").HasMaxLength(40);
             builder.Property(c => c.Edicao).IsRequired().HasColumnName("Edicao");
             builder.Property(c => c.AnoPublicacao).IsRequired().HasColumnName("AnoPublicacao").HasMaxLength(40);
+            builder.Property(c => c.Preco).HasColumnName("Preco");
+           
+
         }
+       
     }
 }

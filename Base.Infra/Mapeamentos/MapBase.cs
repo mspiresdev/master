@@ -17,5 +17,6 @@ namespace Base.Infra.Mapeamentos
 
             builder.Property(c => c.Id).IsRequired().HasColumnName("Id");
         }
+        
     }
 }

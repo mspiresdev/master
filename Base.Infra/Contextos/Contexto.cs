@@ -11,7 +11,7 @@ namespace Base.Infra.Contextos
 {
     public class Contexto : DbContext
     {
-        public DbSet<Prato> Pratos { get; set; }
+        
 
         public IDbContextTransaction Transaction { get; private set; }
 
@@ -76,10 +76,36 @@ namespace Base.Infra.Contextos
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new PratoMap());
+           
             modelBuilder.ApplyConfiguration(new LivroMap());
             modelBuilder.ApplyConfiguration(new AutorMap());
             modelBuilder.ApplyConfiguration(new AssuntoMap());
+
+            modelBuilder.Entity<LivroAssunto>()
+        .HasKey(pc => new { pc.Livro_Id, pc.Assunto_Id });
+
+            modelBuilder.Entity<LivroAssunto>()
+                .HasOne(pc => pc.Livro)
+                .WithMany(p => p.LAssuntos)
+                .HasForeignKey(pc => pc.Id);
+
+            modelBuilder.Entity<LivroAssunto>()
+                .HasOne(pc => pc.Assunto)
+                .WithMany(c => c.LAssuntos)
+                .HasForeignKey(pc => pc.Id);
+
+            modelBuilder.Entity<LivroAutor>()
+       .HasKey(pc => new { pc.Livro_Id, pc.Autor_Id });
+
+            modelBuilder.Entity<LivroAutor>()
+                .HasOne(pc => pc.Livro)
+                .WithMany(p => p.LAutors)
+                .HasForeignKey(pc => pc.Id);
+
+            modelBuilder.Entity<LivroAutor>()
+                .HasOne(pc => pc.Autor)
+                .WithMany(c => c.LAutors)
+                .HasForeignKey(pc => pc.Id);
 
         }
     }
