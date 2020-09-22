@@ -17,9 +17,13 @@ namespace Base.Domain.Entidades
         [NotMapped]
         public List<Assunto> Assuntos { get; set; }
 
-        public ICollection<LivroAutor> LAutors { get; set; }
-        public ICollection<LivroAssunto> LAssuntos { get; set; }
+        public List<LivroAutor> LivroAutor { get; set; }
+        public List<LivroAssunto> LivroAssunto { get; set; }
         //
-
+        public Livro()
+        {
+            LivroAutor = new List<LivroAutor>();
+            LivroAssunto = new List<LivroAssunto>();
+        }
     }
 }

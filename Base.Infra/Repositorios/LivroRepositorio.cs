@@ -15,27 +15,19 @@ namespace Base.Infra.Repositorios
         {
         }
 
-        public override int Incluir(Livro entidade)
+        
+        public override IEnumerable<Livro> SelecionarTodos()
         {
-             base.Incluir(entidade);
-            ILivroAssuntoRepositorio LivroAssuntoRep = new LivroAssuntoRepositorio(contexto);
-            ILivroAutorRepositorio LivroAutorRep = new LivroAutorRepositorio(contexto);
-            entidade.Assuntos.ToList().ForEach(f => LivroAssuntoRep.Incluir(new LivroAssunto() { Assunto_Id = f.Id,  Livro_Id = entidade.Id, Id= f.Id } ));
-            entidade.Autors.ToList().ForEach(f => LivroAutorRep.Incluir(new LivroAutor() { Autor_Id = f.Id, Livro_Id = entidade.Id, Id = f.Id }));
-            return entidade.Id;
+            return contexto.Livros.ToList();
         }
-
         public override Livro SelecionarPorId(int id)
         {
-            ILivroAssuntoRepositorio LivroAssuntoRep = new LivroAssuntoRepositorio(contexto);
-            ILivroAutorRepositorio LivroAutorRep = new LivroAutorRepositorio(contexto);
-            IAssuntoRepositorio AssuntoRep = new AssuntoRepositorio(contexto);
-            IAutorRepositorio AutorRep = new AutorRepositorio(contexto);
-            var livro = base.SelecionarPorId(id);
-            var ass = LivroAssuntoRep.SelecionarTodos().Where(u=> u.Livro_Id == livro.Id).Select(s=> s.Assunto_Id).ToList();
-            var aus = LivroAutorRep.SelecionarTodos().Where(u => u.Livro_Id == livro.Id).Select(s => s.Autor_Id).ToList(); ;
-            livro.Assuntos = AssuntoRep.SelecionarTodos().Where(a => ass.Contains(a.Id)).ToList();
-            livro.Autors = AutorRep.SelecionarTodos().Where(a => aus.Contains(a.Id)).ToList();
+          var lau = contexto.LivroAutor.ToList();
+            var las = contexto.LivroAssunto.ToList();
+            var lu = contexto.Autors.ToList();
+            var ls = contexto.Assuntos.ToList();
+            var livro = contexto.Livros.FirstOrDefault();
+
             return livro;
         }
     }

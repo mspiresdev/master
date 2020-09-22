@@ -4,14 +4,16 @@ using Base.Infra.Contextos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 //using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Base.Infra.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20200922195704_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,79 +25,47 @@ namespace Base.Infra.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnName("Descricao")
-                        .HasMaxLength(100);
-
-                    b.Property<int?>("LivroId");
-
-                    b.Property<int?>("Livro_Id");
+                    b.Property<string>("Descricao");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LivroId");
-
-                    b.ToTable("assunto");
+                    b.ToTable("Assunto");
                 });
 
             modelBuilder.Entity("Base.Domain.Entidades.Autor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("LivroId");
-
-                    b.Property<int?>("Livro_Id");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnName("Nome")
-                        .HasMaxLength(100);
+                    b.Property<string>("Nome");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LivroId");
-
-                    b.ToTable("autor");
+                    b.ToTable("Autor");
                 });
 
             modelBuilder.Entity("Base.Domain.Entidades.Livro", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AnoPublicacao")
-                        .IsRequired()
-                        .HasColumnName("AnoPublicacao")
-                        .HasMaxLength(40);
+                    b.Property<string>("AnoPublicacao");
 
-                    b.Property<int>("Edicao")
-                        .HasColumnName("Edicao");
+                    b.Property<int>("Edicao");
 
-                    b.Property<string>("Editora")
-                        .IsRequired()
-                        .HasColumnName("Editora")
-                        .HasMaxLength(40);
+                    b.Property<string>("Editora");
 
-                    b.Property<decimal>("Preco")
-                        .HasColumnName("Preco");
+                    b.Property<decimal>("Preco");
 
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasColumnName("Titulo")
-                        .HasMaxLength(40);
+                    b.Property<string>("Titulo");
 
                     b.HasKey("Id");
 
-                    b.ToTable("livro");
+                    b.ToTable("Livro");
                 });
 
             modelBuilder.Entity("Base.Domain.Entidades.LivroAssunto", b =>
@@ -104,11 +74,9 @@ namespace Base.Infra.Migrations
 
                     b.Property<int?>("Assunto_Id");
 
-                    b.Property<int>("Id");
-
                     b.HasKey("Livro_Id", "Assunto_Id");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("Assunto_Id");
 
                     b.ToTable("LivroAssunto");
                 });
@@ -119,52 +87,36 @@ namespace Base.Infra.Migrations
 
                     b.Property<int?>("Autor_Id");
 
-                    b.Property<int>("Id");
-
                     b.HasKey("Livro_Id", "Autor_Id");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("Autor_Id");
 
                     b.ToTable("LivroAutor");
-                });
-
-            modelBuilder.Entity("Base.Domain.Entidades.Assunto", b =>
-                {
-                    b.HasOne("Base.Domain.Entidades.Livro", "Livro")
-                        .WithMany()
-                        .HasForeignKey("LivroId");
-                });
-
-            modelBuilder.Entity("Base.Domain.Entidades.Autor", b =>
-                {
-                    b.HasOne("Base.Domain.Entidades.Livro", "Livro")
-                        .WithMany()
-                        .HasForeignKey("LivroId");
                 });
 
             modelBuilder.Entity("Base.Domain.Entidades.LivroAssunto", b =>
                 {
                     b.HasOne("Base.Domain.Entidades.Assunto", "Assunto")
-                        .WithMany("LAssuntos")
-                        .HasForeignKey("Id")
+                        .WithMany()
+                        .HasForeignKey("Assunto_Id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Base.Domain.Entidades.Livro", "Livro")
-                        .WithMany("LAssuntos")
-                        .HasForeignKey("Id")
+                        .WithMany("Assuntos")
+                        .HasForeignKey("Livro_Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Base.Domain.Entidades.LivroAutor", b =>
                 {
                     b.HasOne("Base.Domain.Entidades.Autor", "Autor")
-                        .WithMany("LAutors")
-                        .HasForeignKey("Id")
+                        .WithMany()
+                        .HasForeignKey("Autor_Id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Base.Domain.Entidades.Livro", "Livro")
-                        .WithMany("LAutors")
-                        .HasForeignKey("Id")
+                        .WithMany("Autors")
+                        .HasForeignKey("Livro_Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Base.Domain.Entidades
@@ -8,11 +9,8 @@ namespace Base.Domain.Entidades
     {
         public string Descricao { get; set; }
 
-        //
-        public virtual Livro Livro { get; set; }
+        [NotMapped]
+        public List<LivroAssunto> LivroAssunto { get; set; }
 
-        public int? Livro_Id { get; set; }
-
-        public ICollection<LivroAssunto> LAssuntos { get; set; }
     }
 }

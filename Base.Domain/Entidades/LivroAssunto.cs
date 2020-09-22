@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Base.Domain.Entidades
 {
-    public class LivroAssunto : EntidadeBase
+    public class LivroAssunto
     {
         
 

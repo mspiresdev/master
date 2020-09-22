@@ -68,10 +68,19 @@ export class LivroCrudComponent implements OnInit {
     });
   }
   add(obj: object, listObj: object[]) {
+    var id;
+    this._route.paramMap.subscribe(param => {
+      id = +param.get('id');
+    });
     
     if (listObj !== undefined) {
-      if(listObj.filter(order => (order.id === obj.id)).length <= 0)
+      if (listObj.filter(order => (order.id === obj.id)).length <= 0)
+      {
+        obj.Livro_Id = id;
+        obj.Autor_Id = obj.id;
+        obj.Assunto_Id = obj.id;
         listObj.push(obj);
+      }
     }
   }
   remove(obj: object, listObj: object[]) {

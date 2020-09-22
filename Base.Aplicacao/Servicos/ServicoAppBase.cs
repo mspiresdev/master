@@ -43,7 +43,7 @@ namespace Base.Aplicacao.Servicos
             return servico.Incluir(iMapper.Map<TEntidade>(entidade));
         }
 
-        public TEntidadeDTO SelecionarPorId(int id)
+        public virtual TEntidadeDTO SelecionarPorId(int id)
         {
             return iMapper.Map<TEntidadeDTO>(servico.SelecionarPorId(id));
         }

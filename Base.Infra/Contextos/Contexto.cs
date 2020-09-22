@@ -71,42 +71,90 @@ namespace Base.Infra.Contextos
             Commit();
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder mb)
         {
-            base.OnModelCreating(modelBuilder);
+             base.OnModelCreating(mb);
+            // Remove a plural automatico
 
-           
-            modelBuilder.ApplyConfiguration(new LivroMap());
-            modelBuilder.ApplyConfiguration(new AutorMap());
-            modelBuilder.ApplyConfiguration(new AssuntoMap());
 
-            modelBuilder.Entity<LivroAssunto>()
-        .HasKey(pc => new { pc.Livro_Id, pc.Assunto_Id });
+            //modelBuilder.ApplyConfiguration(new LivroMap());
+            //modelBuilder.ApplyConfiguration(new AutorMap());
+            //modelBuilder.ApplyConfiguration(new AssuntoMap());
 
-            modelBuilder.Entity<LivroAssunto>()
-                .HasOne(pc => pc.Livro)
-                .WithMany(p => p.LAssuntos)
-                .HasForeignKey(pc => pc.Id);
+            mb.Entity<Livro>().ToTable("Livro");
 
-            modelBuilder.Entity<LivroAssunto>()
-                .HasOne(pc => pc.Assunto)
-                .WithMany(c => c.LAssuntos)
-                .HasForeignKey(pc => pc.Id);
+            mb.Entity<Assunto>().ToTable("Assunto");
 
-            modelBuilder.Entity<LivroAutor>()
-       .HasKey(pc => new { pc.Livro_Id, pc.Autor_Id });
+            mb.Entity<Autor>().ToTable("Autor");
 
-            modelBuilder.Entity<LivroAutor>()
-                .HasOne(pc => pc.Livro)
-                .WithMany(p => p.LAutors)
-                .HasForeignKey(pc => pc.Id);
+            mb.Entity<LivroAutor>().ToTable("LivroAutor");
 
-            modelBuilder.Entity<LivroAutor>()
-                .HasOne(pc => pc.Autor)
-                .WithMany(c => c.LAutors)
-                .HasForeignKey(pc => pc.Id);
+            mb.Entity<LivroAssunto>().ToTable("LivroAssunto");
+
+
+            
+
+            mb.Entity<LivroAssunto>().HasKey(k => new { k.Livro_Id, k.Assunto_Id });
+
+            mb.Entity<LivroAssunto>()
+                .HasOne<Livro>(sc => sc.Livro)
+                .WithMany(s => s.LivroAssunto)
+                .HasForeignKey(sc => sc.Livro_Id);
+
+
+            mb.Entity<LivroAssunto>()
+                .HasOne<Assunto>(sc => sc.Assunto)
+                .WithMany(s => s.LivroAssunto)
+                .HasForeignKey(sc => sc.Assunto_Id);
+
+
+            mb.Entity<LivroAutor>().HasKey(k => new { k.Livro_Id, k.Autor_Id });
+
+            mb.Entity<LivroAutor>()
+                .HasOne<Livro>(sc => sc.Livro)
+                .WithMany(s => s.LivroAutor)
+                .HasForeignKey(sc => sc.Livro_Id);
+
+
+            mb.Entity<LivroAutor>()
+                .HasOne<Autor>(sc => sc.Autor)
+                .WithMany(s => s.LivroAutors)
+                .HasForeignKey(sc => sc.Autor_Id);
+
+
+
+      //      mb.Entity<LivroAutor>()
+      //         .HasKey(k => new { k.Livro_Id, k.Autor_Id })
+      //     ;
+
+      //      mb.Entity<LivroAutor>()
+      //      .HasOne(s => s.Livro)
+      //      .WithMany(s => s.Autors)
+      //       .HasForeignKey(a => a.Livro_Id);
+      //      ;
+
+      //      mb.Entity<LivroAutor>()
+      //       .HasOne(s => s.Autor)
+      //       .WithMany()
+      //    .HasForeignKey(a => a.Autor_Id);
+      //      ;
+
+
+      //      mb.Entity<LivroAutor>()
+      //  .HasOne<Livro>(sc => sc.Livro)
+      //  .WithMany(s => s.Autors)
+      //  .HasForeignKey(sc => sc.Livro_Id);
+
+      //      mb.Entity<LivroAssunto>()
+      //.HasOne<Livro>(sc => sc.Livro)
+      //.WithMany(s => s.Assuntos)
+      //.HasForeignKey(sc => sc.Livro_Id);
 
         }
-      
+        public DbSet<Livro> Livros { get; set; }
+        public DbSet<Assunto> Assuntos { get; set; }
+        public DbSet<Autor> Autors { get; set; }
+        public DbSet<LivroAssunto> LivroAssunto { get; set; }
+        public DbSet<LivroAutor> LivroAutor { get; set; }
     }
 }

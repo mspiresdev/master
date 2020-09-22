@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Base.Aplicacao.DTO
 {
-    public class LivroAutorDTO : DTOBase
+    public class LivroAutorDTO 
     {
 
 

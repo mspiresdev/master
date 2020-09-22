@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Base.Aplicacao.DTO
 {
-    public class LivroAssuntoDTO : DTOBase
+    public class LivroAssuntoDTO 
     {
         public virtual LivroDTO Livro { get; set; }
 

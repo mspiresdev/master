@@ -47,8 +47,8 @@ namespace Base.Web.Controllers
         {
             try
             {
-                var restaurantes = app.SelecionarPorId(id);
-                return new OkObjectResult(restaurantes);
+                var obj = app.SelecionarPorId(id);
+                return new OkObjectResult(obj);
             }
             catch (Exception ex)
             {
