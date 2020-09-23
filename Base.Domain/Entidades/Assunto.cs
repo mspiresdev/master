@@ -9,8 +9,8 @@ namespace Base.Domain.Entidades
     {
         public string Descricao { get; set; }
 
-        [NotMapped]
-        public List<LivroAssunto> LivroAssunto { get; set; }
+       
+        public List<LivroAssunto> LivroAssuntos { get; set; }
 
     }
 }

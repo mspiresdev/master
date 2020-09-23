@@ -16,14 +16,14 @@ namespace Base.Aplicacao.Servicos
         {
 
         }
-        public override LivroDTO SelecionarPorId(int id)
+
+        public override int Incluir(LivroDTO entidade)
         {
-           var obj= base.SelecionarPorId(id);
-            obj.Assuntos = obj.LivroAssunto.Select(s => s.Assunto).ToList();
-            obj.Autors = obj.LivroAutor.Select(s => s.Autor).ToList();
-            obj.LivroAutor = null;
-            obj.LivroAssunto = null;
-            return obj;
+            entidade.LivroAssuntos = entidade.Assuntos.Select(s => new LivroAssuntoDTO() { AssuntoId = s.Id }).ToList();
+            entidade.LivroAutors = entidade.Autors.Select(s => new LivroAutorDTO() { Autor_Id = s.Id }).ToList();
+            return base.Incluir(entidade);
         }
+
+       
     }
 }

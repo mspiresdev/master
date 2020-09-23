@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Base.Infra.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20200922195704_1")]
-    partial class _1
+    [Migration("20200923005323_2")]
+    partial class _2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,71 +25,109 @@ namespace Base.Infra.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Descricao");
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Assunto");
+                    b.ToTable("assunto");
                 });
 
             modelBuilder.Entity("Base.Domain.Entidades.Autor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnName("Nome")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Autor");
+                    b.ToTable("autor");
                 });
 
             modelBuilder.Entity("Base.Domain.Entidades.Livro", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AnoPublicacao");
+                    b.Property<string>("AnoPublicacao")
+                        .IsRequired()
+                        .HasColumnName("AnoPublicacao")
+                        .HasMaxLength(40);
 
-                    b.Property<int>("Edicao");
+                    b.Property<int>("Edicao")
+                        .HasColumnName("Edicao");
 
-                    b.Property<string>("Editora");
+                    b.Property<string>("Editora")
+                        .IsRequired()
+                        .HasColumnName("Editora")
+                        .HasMaxLength(40);
 
-                    b.Property<decimal>("Preco");
+                    b.Property<decimal>("Preco")
+                        .HasColumnName("Preco");
 
-                    b.Property<string>("Titulo");
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnName("Titulo")
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Livro");
+                    b.ToTable("livro");
                 });
 
             modelBuilder.Entity("Base.Domain.Entidades.LivroAssunto", b =>
                 {
-                    b.Property<int?>("Livro_Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AssuntoId");
 
                     b.Property<int?>("Assunto_Id");
 
-                    b.HasKey("Livro_Id", "Assunto_Id");
+                    b.Property<int?>("LivroId");
 
-                    b.HasIndex("Assunto_Id");
+                    b.Property<int?>("Livro_Id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssuntoId");
+
+                    b.HasIndex("LivroId");
 
                     b.ToTable("LivroAssunto");
                 });
 
             modelBuilder.Entity("Base.Domain.Entidades.LivroAutor", b =>
                 {
-                    b.Property<int?>("Livro_Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Autor_Id");
+                    b.Property<int?>("Autor_Id")
+                        .IsRequired();
 
-                    b.HasKey("Livro_Id", "Autor_Id");
+                    b.Property<int?>("Livro_Id")
+                        .IsRequired();
+
+                    b.HasKey("Id");
 
                     b.HasIndex("Autor_Id");
+
+                    b.HasIndex("Livro_Id");
 
                     b.ToTable("LivroAutor");
                 });
@@ -97,25 +135,23 @@ namespace Base.Infra.Migrations
             modelBuilder.Entity("Base.Domain.Entidades.LivroAssunto", b =>
                 {
                     b.HasOne("Base.Domain.Entidades.Assunto", "Assunto")
-                        .WithMany()
-                        .HasForeignKey("Assunto_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("LivroAssuntos")
+                        .HasForeignKey("AssuntoId");
 
                     b.HasOne("Base.Domain.Entidades.Livro", "Livro")
-                        .WithMany("Assuntos")
-                        .HasForeignKey("Livro_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("LivroAssuntos")
+                        .HasForeignKey("LivroId");
                 });
 
             modelBuilder.Entity("Base.Domain.Entidades.LivroAutor", b =>
                 {
                     b.HasOne("Base.Domain.Entidades.Autor", "Autor")
-                        .WithMany()
+                        .WithMany("LivroAutors")
                         .HasForeignKey("Autor_Id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Base.Domain.Entidades.Livro", "Livro")
-                        .WithMany("Autors")
+                        .WithMany("LivroAutors")
                         .HasForeignKey("Livro_Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

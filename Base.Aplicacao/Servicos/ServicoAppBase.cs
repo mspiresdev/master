@@ -23,22 +23,22 @@ namespace Base.Aplicacao.Servicos
             this.servico = servico;
         }
 
-        public void Alterar(TEntidadeDTO entidade)
+        public virtual void Alterar(TEntidadeDTO entidade)
         {
             servico.Alterar(iMapper.Map<TEntidade>(entidade));
         }
 
-        public void Excluir(int id)
+        public virtual void Excluir(int id)
         {
             servico.Excluir(id);
         }
 
-        public void Excluir(TEntidadeDTO entidade)
+        public virtual void Excluir(TEntidadeDTO entidade)
         {
             servico.Excluir(iMapper.Map<TEntidade>(entidade));
         }
 
-        public int Incluir(TEntidadeDTO entidade)
+        public virtual int Incluir(TEntidadeDTO entidade)
         {
             return servico.Incluir(iMapper.Map<TEntidade>(entidade));
         }
@@ -48,7 +48,7 @@ namespace Base.Aplicacao.Servicos
             return iMapper.Map<TEntidadeDTO>(servico.SelecionarPorId(id));
         }
 
-        public IEnumerable<TEntidadeDTO> SelecionarTodos()
+        public virtual IEnumerable<TEntidadeDTO> SelecionarTodos()
         {
             return iMapper.Map<IEnumerable<TEntidadeDTO>>(servico.SelecionarTodos());
         }

@@ -65,7 +65,7 @@
     <div *ngFor="let autor of livro.autors">
       <span>{{autor.nome}}</span><button (click)="remove(autor, livro.autors)">X</button>
     </div>
-    <a class="btn btn-secondary" (click)="add(autorBase, livro.autors)">add</a>
+    <a class="btn btn-secondary" (click)="addAutor(autorBase)">add</a>
   </div>
 
   <div class="form-group">
@@ -76,10 +76,10 @@
     <div *ngFor="let assunto of livro.assuntos">
       <span>{{assunto.descricao}}</span><button (click)="remove(assunto, livro.assuntos)">X</button>
     </div>
-    <a class="btn btn-secondary" (click)="add(assuntoBase, livro.assuntos)">add</a>
+    <a class="btn btn-secondary" (click)="addAssunto(assuntoBase)">add</a>
   </div>
 
- 
+
   <p>
     <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="livroForm.invalid">Salvar</button>
 

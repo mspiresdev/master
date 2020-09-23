@@ -8,7 +8,7 @@ namespace Base.Domain.Entidades
     public class Autor : EntidadeBase
     {
         public string Nome { get; set; }
-        [NotMapped]
+        
         public List<LivroAutor> LivroAutors { get; set; }
     }
 }

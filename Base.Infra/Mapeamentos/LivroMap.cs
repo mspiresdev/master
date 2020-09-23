@@ -14,6 +14,7 @@ namespace Base.Infra.Mapeamentos
         {
             base.Configure(builder);
             builder.ToTable("livro");
+           
             builder.Property(c => c.Titulo).IsRequired().HasColumnName("Titulo").HasMaxLength(40);
             builder.Property(c => c.Editora).IsRequired().HasColumnName("Editora").HasMaxLength(40);
             builder.Property(c => c.Edicao).IsRequired().HasColumnName("Edicao");

@@ -8,10 +8,10 @@ namespace Base.Aplicacao.DTO
     {
         public virtual LivroDTO Livro { get; set; }
 
-        public int? Livro_Id { get; set; }
+        public int? LivroId { get; set; }
 
         public virtual AssuntoDTO Assunto { get; set; }
 
-        public int? Assunto_Id { get; set; }
+        public int? AssuntoId { get; set; }
     }
 }

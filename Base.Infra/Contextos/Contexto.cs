@@ -23,7 +23,7 @@ namespace Base.Infra.Contextos
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+           
         }
 
         public IDbContextTransaction InitTransacao()
@@ -71,84 +71,25 @@ namespace Base.Infra.Contextos
             Commit();
         }
 
-        protected override void OnModelCreating(ModelBuilder mb)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-             base.OnModelCreating(mb);
-            // Remove a plural automatico
 
+            //var typesToRegister = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+            //  .Where(x => typeof(IEntityConfig).IsAssignableFrom(x) && !x.IsAbstract).ToList();
 
-            //modelBuilder.ApplyConfiguration(new LivroMap());
-            //modelBuilder.ApplyConfiguration(new AutorMap());
-            //modelBuilder.ApplyConfiguration(new AssuntoMap());
-
-            mb.Entity<Livro>().ToTable("Livro");
-
-            mb.Entity<Assunto>().ToTable("Assunto");
-
-            mb.Entity<Autor>().ToTable("Autor");
-
-            mb.Entity<LivroAutor>().ToTable("LivroAutor");
-
-            mb.Entity<LivroAssunto>().ToTable("LivroAssunto");
-
-
+            //foreach (var type in typesToRegister)
+            //{
+            //    dynamic configurationInstance = Activator.CreateInstance(type);
+            //    modelBuilder.ApplyConfiguration(configurationInstance);
+            //}
+            base.OnModelCreating(modelBuilder);
             
 
-            mb.Entity<LivroAssunto>().HasKey(k => new { k.Livro_Id, k.Assunto_Id });
-
-            mb.Entity<LivroAssunto>()
-                .HasOne<Livro>(sc => sc.Livro)
-                .WithMany(s => s.LivroAssunto)
-                .HasForeignKey(sc => sc.Livro_Id);
-
-
-            mb.Entity<LivroAssunto>()
-                .HasOne<Assunto>(sc => sc.Assunto)
-                .WithMany(s => s.LivroAssunto)
-                .HasForeignKey(sc => sc.Assunto_Id);
-
-
-            mb.Entity<LivroAutor>().HasKey(k => new { k.Livro_Id, k.Autor_Id });
-
-            mb.Entity<LivroAutor>()
-                .HasOne<Livro>(sc => sc.Livro)
-                .WithMany(s => s.LivroAutor)
-                .HasForeignKey(sc => sc.Livro_Id);
-
-
-            mb.Entity<LivroAutor>()
-                .HasOne<Autor>(sc => sc.Autor)
-                .WithMany(s => s.LivroAutors)
-                .HasForeignKey(sc => sc.Autor_Id);
-
-
-
-      //      mb.Entity<LivroAutor>()
-      //         .HasKey(k => new { k.Livro_Id, k.Autor_Id })
-      //     ;
-
-      //      mb.Entity<LivroAutor>()
-      //      .HasOne(s => s.Livro)
-      //      .WithMany(s => s.Autors)
-      //       .HasForeignKey(a => a.Livro_Id);
-      //      ;
-
-      //      mb.Entity<LivroAutor>()
-      //       .HasOne(s => s.Autor)
-      //       .WithMany()
-      //    .HasForeignKey(a => a.Autor_Id);
-      //      ;
-
-
-      //      mb.Entity<LivroAutor>()
-      //  .HasOne<Livro>(sc => sc.Livro)
-      //  .WithMany(s => s.Autors)
-      //  .HasForeignKey(sc => sc.Livro_Id);
-
-      //      mb.Entity<LivroAssunto>()
-      //.HasOne<Livro>(sc => sc.Livro)
-      //.WithMany(s => s.Assuntos)
-      //.HasForeignKey(sc => sc.Livro_Id);
+            modelBuilder.ApplyConfiguration(new LivroMap());
+            modelBuilder.ApplyConfiguration(new AutorMap());
+            modelBuilder.ApplyConfiguration(new AssuntoMap());
+            modelBuilder.ApplyConfiguration(new LivroAutorMap());
+            
 
         }
         public DbSet<Livro> Livros { get; set; }

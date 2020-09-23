@@ -22,13 +22,18 @@ namespace Base.Infra.Repositorios
         }
         public override Livro SelecionarPorId(int id)
         {
-          var lau = contexto.LivroAutor.ToList();
-            var las = contexto.LivroAssunto.ToList();
-            var lu = contexto.Autors.ToList();
-            var ls = contexto.Assuntos.ToList();
-            var livro = contexto.Livros.FirstOrDefault();
-
+            var livro = contexto.Livros.FirstOrDefault(u=> u.Id == id);
+            livro.Assuntos = contexto.LivroAssunto.Where(u => u.LivroId == id).Select(s => s.Assunto).ToList();
+            livro.Autors = contexto.LivroAutor.Where(u => u.Livro_Id == id).Select(s => s.Autor).ToList();
+            
             return livro;
         }
+
+        //public override int Incluir(Livro entidade)
+        //{
+        //    contexto.Livros.Add(entidade);
+        //    contexto.SaveChanges();
+        //    return entidade.Id;
+        //}
     }
 }

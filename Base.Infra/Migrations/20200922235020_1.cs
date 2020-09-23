@@ -8,105 +8,119 @@ namespace Base.Infra.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Assunto",
+                name: "assunto",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Descricao = table.Column<string>(nullable: true)
+                    Descricao = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Assunto", x => x.Id);
+                    table.PrimaryKey("PK_assunto", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Autor",
+                name: "autor",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(nullable: true)
+                    Nome = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Autor", x => x.Id);
+                    table.PrimaryKey("PK_autor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Livro",
+                name: "livro",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Titulo = table.Column<string>(nullable: true),
-                    Editora = table.Column<string>(nullable: true),
+                    Titulo = table.Column<string>(maxLength: 40, nullable: false),
+                    Editora = table.Column<string>(maxLength: 40, nullable: false),
                     Edicao = table.Column<int>(nullable: false),
-                    AnoPublicacao = table.Column<string>(nullable: true),
+                    AnoPublicacao = table.Column<string>(maxLength: 40, nullable: false),
                     Preco = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Livro", x => x.Id);
+                    table.PrimaryKey("PK_livro", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "LivroAssunto",
                 columns: table => new
                 {
-                    Livro_Id = table.Column<int>(nullable: false),
-                    Assunto_Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    LivroId = table.Column<int>(nullable: true),
+                    AssuntoId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LivroAssunto", x => new { x.Livro_Id, x.Assunto_Id });
+                    table.PrimaryKey("PK_LivroAssunto", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LivroAssunto_Assunto_Assunto_Id",
-                        column: x => x.Assunto_Id,
-                        principalTable: "Assunto",
+                        name: "FK_LivroAssunto_assunto_AssuntoId",
+                        column: x => x.AssuntoId,
+                        principalTable: "assunto",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_LivroAssunto_Livro_Livro_Id",
-                        column: x => x.Livro_Id,
-                        principalTable: "Livro",
+                        name: "FK_LivroAssunto_livro_LivroId",
+                        column: x => x.LivroId,
+                        principalTable: "livro",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "LivroAutor",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Livro_Id = table.Column<int>(nullable: false),
                     Autor_Id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LivroAutor", x => new { x.Livro_Id, x.Autor_Id });
+                    table.PrimaryKey("PK_LivroAutor", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LivroAutor_Autor_Autor_Id",
+                        name: "FK_LivroAutor_autor_Autor_Id",
                         column: x => x.Autor_Id,
-                        principalTable: "Autor",
+                        principalTable: "autor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LivroAutor_Livro_Livro_Id",
+                        name: "FK_LivroAutor_livro_Livro_Id",
                         column: x => x.Livro_Id,
-                        principalTable: "Livro",
+                        principalTable: "livro",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LivroAssunto_Assunto_Id",
+                name: "IX_LivroAssunto_AssuntoId",
                 table: "LivroAssunto",
-                column: "Assunto_Id");
+                column: "AssuntoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LivroAssunto_LivroId",
+                table: "LivroAssunto",
+                column: "LivroId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LivroAutor_Autor_Id",
                 table: "LivroAutor",
                 column: "Autor_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LivroAutor_Livro_Id",
+                table: "LivroAutor",
+                column: "Livro_Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -118,13 +132,13 @@ namespace Base.Infra.Migrations
                 name: "LivroAutor");
 
             migrationBuilder.DropTable(
-                name: "Assunto");
+                name: "assunto");
 
             migrationBuilder.DropTable(
-                name: "Autor");
+                name: "autor");
 
             migrationBuilder.DropTable(
-                name: "Livro");
+                name: "livro");
         }
     }
 }
