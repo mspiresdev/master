@@ -31,17 +31,6 @@ namespace Base.Core.Ioc
             );
 
            
-            ////Aplicação
-            //svcCollection.AddScoped(typeof(IAppBase<,>), typeof(ServicoAppBase<,>));
-            //svcCollection.AddScoped<IPratoApp, PratoApp>();
-
-            ////Domínio
-            //svcCollection.AddScoped(typeof(IServicoBase<>), typeof(ServicoBase<>));
-            //svcCollection.AddScoped<IPratoServico, PratoServico>();
-
-            ////Repositorio
-            //svcCollection.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
-            //svcCollection.AddScoped<IPratoRepositorio, PratoRepositorio>();
         }
     }
 }
