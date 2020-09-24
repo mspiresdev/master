@@ -11,7 +11,7 @@ import { AssuntoService } from '../../service/assunto.service';
 import { Autor } from '../../model/autor';
 import * as alertify from 'alertifyjs';
 import { ENGINE_METHOD_ALL } from 'constants';
-import { map } from 'rxjs/operators';
+import { map, debounce } from 'rxjs/operators';
 import { Assunto } from 'src/app/model/assunto';
 
 
@@ -31,19 +31,62 @@ export class LivroCrudComponent implements OnInit {
   livro: Livro;
   autors: Autor[];
   assuntos: Assunto[];
+  autor: Autor;
+  assunto: Assunto;
+
+  dropdownListAutors = [];
+  dropdownListAssuntos = [];
+  selectedItemsAutors = [];
+  selectedItemsAutors = [];
+  dropdownSettings: IDropdownSettings;
  
   bindDrop() {
-   
-    this._autorService.getAutors().subscribe(l => {
-      this.autors = l;
-      
-    });
+
+    
     
     this._assuntoService.getAssuntos().subscribe(l => {
       this.assuntos = l;
+      this.dropdownListAssuntos = l.map(s => {
+        var teste = {};
+        teste.item_id = s.id;
+        teste.item_text = s.descricao;
+        return teste;
+      });
 
     });
+    this._autorService.getAutors().subscribe(l => {
+      this.autors = l;
+      this.dropdownListAutors = l.map(s => {
+        var teste = {};
+        teste.item_id = s.id;
+        teste.item_text = s.nome;
+        return teste;
+      });
+
+    });
+    
+   
   }
+
+  bindAutor() {
+    this.selectedItemsAutors = this.livro.autors.map(s => {
+      var teste = {};
+      teste.item_id = s.id;
+      teste.item_text = s.nome;
+      return teste;
+    });
+    
+  }
+
+  bindAssunto() {
+    this.selectedItemsAssuntos = this.livro.assuntos.map(s => {
+      var teste = {};
+      teste.item_id = s.id;
+      teste.item_text = s.descricao;
+      return teste;
+    });
+  }
+
   inicialize() {
     this._route.paramMap.subscribe(param => {
       this.livro = {
@@ -60,17 +103,42 @@ export class LivroCrudComponent implements OnInit {
       if (id !== 0) {
         this._livroService.getLivro(id).subscribe((data: Livro) => {
           this.livro = data;
+          this.bindAutor();
+          this.bindAssunto();
         })
       }
 
     });
   }
+  
   ngOnInit(): void {
     
     this.bindDrop();
     this.inicialize();
+
+    //this.dropdownList = [
+    //  { item_id: 1, item_text: 'Mumbai' },
+    //  { item_id: 2, item_text: 'Bangaluru' },
+    //  { item_id: 3, item_text: 'Pune' },
+    //  { item_id: 4, item_text: 'Navsari' },
+    //  { item_id: 5, item_text: 'New Delhi' }
+    //];
+    //this.selectedItems = [
+    //  { item_id: 3, item_text: 'Pune' },
+    //  { item_id: 4, item_text: 'Navsari' }
+    //];
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
    
   }
+
   addAutor(obj: Autor) {
     
     if (this.livro.autors !== undefined) {
@@ -116,10 +184,53 @@ export class LivroCrudComponent implements OnInit {
     this.inicialize();
   }
 
-  onItemSelect(item: any) {
-    console.log(item);
+  onItemSelectAutors(item: any) {
+    
+    this.autor = {
+      id: item.item_id,
+      nome: item.item_text
+    }
+    this.livro.autors.push(this.autor);
+
   }
-  onSelectAll(items: any) {
-    console.log(items);
+  
+  onItemDeSelectAutors(item: any) {
+    this.autor = {
+      id: item.item_id,
+      nome: item.item_text
+    }
+    for (var i = 0; i < this.livro.autors.length; i++)
+    {
+      
+      if (this.livro.autors[i].id === this.autor.id)
+      {
+        this.livro.autors.splice(i, 1); ;
+      }
+    }
+   
+  }
+
+  onItemSelectAssuntos(item: any) {
+
+    this.assunto = {
+      id: item.item_id,
+      descricao: item.item_text
+    }
+    this.livro.assuntos.push(this.assunto);
+
+  }
+
+  onItemDeSelectAssuntos(item: any) {
+    this.assunto = {
+      id: item.item_id,
+      descricao: item.item_text
+    }
+    for (var i = 0; i < this.livro.assuntos.length; i++) {
+
+      if (this.livro.assuntos[i].id === this.assunto.id) {
+        this.livro.assuntos.splice(i, 1);;
+      }
+    }
+
   }
 }
