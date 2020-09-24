@@ -8,7 +8,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     
     return next.handle(request)
       .pipe(
-        catchError((error: HttpErrorResponse) => {
+      catchError((error: HttpErrorResponse) => {
+        
           let errorMsg = '';
           if (error.error instanceof ErrorEvent) {
            
@@ -16,7 +17,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           }
           else {
             console.log('this is server side error');
-            errorMsg = `Error Code: ${error.status},  Message: ${error.message}`;
+            if (error.error) {
+              errorMsg = error.error;
+            } else {
+              errorMsg = `Error Code: ${error.status},  Message: ${error.message}`;
+            }
           }
         alertify.error(errorMsg);
           return throwError(errorMsg);

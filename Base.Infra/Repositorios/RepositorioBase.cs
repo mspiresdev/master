@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 
 using System.Linq;
+using System.Data.SqlClient;
 
 namespace Base.Infra.Repositorios
 {
@@ -31,13 +32,34 @@ namespace Base.Infra.Repositorios
 
         public virtual void Excluir(int id)
         {
-            var entidade = SelecionarPorId(id);
-            if (entidade != null)
+            try
             {
-                contexto.InitTransacao();
-                contexto.Set<TEntidade>().Remove(entidade);
-                contexto.SendChanges();
+                var entidade = SelecionarPorId(id);
+                if (entidade != null)
+                {
+                    contexto.InitTransacao();
+                    contexto.Set<TEntidade>().Remove(entidade);
+                    contexto.SendChanges();
+                }
             }
+            catch (Exception ex)
+            {
+                throw GetTypeError(ex, "DELETE");
+            }
+            
+        }
+
+
+
+        private Exception GetTypeError(Exception ex, string action)
+        {
+            if(ex.InnerException != null)
+            {
+                if(ex.InnerException.Message.Contains("FK") && action == "DELETE" )
+                        return new Exception("Item está em sendo utilizado.");
+               
+            }
+            return ex;
         }
 
         public virtual void Excluir(TEntidade entidade)

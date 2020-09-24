@@ -43,6 +43,20 @@
   </div>
 
   <div class="form-group">
+    <label for="edicao">Preço:</label>
+    <input type="preco" currencyMask  [(ngModel)]="livro.preco" class="form-control" id="preco" name="preco"
+           required
+           #preco="ngModel">
+    <div *ngIf="preco.invalid && (preco.dirty || preco.touched)"
+         class="alert alert-danger">
+
+      <div *ngIf="preco.errors.required">
+        é obrigatório
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="anoPublicacao">Ano:</label>
     <input type="text" [(ngModel)]="livro.anoPublicacao" class="form-control" id="anoPublicacao" name="anoPublicacao"
            required
@@ -62,23 +76,50 @@
     <select class="form-control" id="autor" name="autor" #autor="ngModel" [(ngModel)]="autorBase">
       <option *ngFor="let autor of autors" [ngValue]="autor">{{autor.nome}}</option>
     </select>
-    <div *ngFor="let autor of livro.autors">
-      <span>{{autor.nome}}</span><button (click)="remove(autor, livro.autors)">X</button>
-    </div>
-    <a class="btn btn-secondary" (click)="addAutor(autorBase)">add</a>
-  </div>
 
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let autor of livro.autors">
+          <td scope="row">{{autor.nome}}</td>
+          <td><button (click)="remove(assunto, livro.assuntos)">X</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <a class="btn btn-secondary" (click)="addAutor(autorBase)">>></a>
+  </div>
+  <hr />
+  <hr />
   <div class="form-group">
     <label for="assunto">Assunto:</label>
     <select class="form-control" id="assunto" name="assunto" #assunto="ngModel" [(ngModel)]="assuntoBase">
       <option *ngFor="let assunto of assuntos" [ngValue]="assunto">{{assunto.descricao}}</option>
     </select>
-    <div *ngFor="let assunto of livro.assuntos">
-      <span>{{assunto.descricao}}</span><button (click)="remove(assunto, livro.assuntos)">X</button>
-    </div>
-    <a class="btn btn-secondary" (click)="addAssunto(assuntoBase)">add</a>
-  </div>
 
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let assunto of livro.assuntos">
+          <td scope="row">{{assunto.descricao}}</td>
+          <td><button (click)="remove(assunto, livro.assuntos)">X</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <a class="btn btn-secondary" (click)="addAssunto(assuntoBase)">>></a>
+  </div>
+  
 
   <p>
     <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="livroForm.invalid">Salvar</button>

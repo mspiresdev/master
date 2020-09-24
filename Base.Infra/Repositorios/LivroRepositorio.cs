@@ -29,6 +29,18 @@ namespace Base.Infra.Repositorios
             return livro;
         }
 
+        public override void Alterar(Livro entidade)
+        {
+            var delsAss = contexto.LivroAssunto.Where(u => u.LivroId == entidade.Id);
+            contexto.LivroAssunto.RemoveRange(delsAss);
+            var delsAu = contexto.LivroAutor.Where(u => u.Livro_Id == entidade.Id);
+            contexto.LivroAutor.RemoveRange(delsAu);
+            contexto.SaveChanges();
+            contexto.LivroAutor.AddRange(entidade.Autors.Select(s=> new LivroAutor() { Autor_Id = s.Id, Livro_Id = entidade.Id }));
+            contexto.LivroAssunto.AddRange(entidade.Assuntos.Select(s => new LivroAssunto() {  AssuntoId = s.Id,  LivroId = entidade.Id }));
+            contexto.SaveChanges();
+            base.Alterar(entidade);
+        }
         //public override int Incluir(Livro entidade)
         //{
         //    contexto.Livros.Add(entidade);

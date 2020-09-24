@@ -62,11 +62,15 @@ namespace Base.Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
                 var result = app.Incluir(dado);
                 return new OkObjectResult(result);
             }
             catch (Exception ex)
-                {
+            {
                 return BadRequest(ex.Message);
             }
         }
@@ -76,6 +80,10 @@ namespace Base.Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
                 app.Alterar(dado);
                 return new OkObjectResult(true);
             }

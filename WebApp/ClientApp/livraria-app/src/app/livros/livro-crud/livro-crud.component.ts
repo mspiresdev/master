@@ -44,10 +44,7 @@ export class LivroCrudComponent implements OnInit {
 
     });
   }
-  
-  ngOnInit(): void {
-    
-    this.bindDrop();
+  inicialize() {
     this._route.paramMap.subscribe(param => {
       this.livro = {
         id: 0,
@@ -55,6 +52,7 @@ export class LivroCrudComponent implements OnInit {
         edicao: null,
         anoPublicacao: null,
         editora: null,
+        preco:null,
         autors: [],
         assuntos: []
       }
@@ -66,6 +64,12 @@ export class LivroCrudComponent implements OnInit {
       }
 
     });
+  }
+  ngOnInit(): void {
+    
+    this.bindDrop();
+    this.inicialize();
+   
   }
   addAutor(obj: Autor) {
     
@@ -104,10 +108,12 @@ export class LivroCrudComponent implements OnInit {
       }, (erro: any) => console.log(erro));
     }
     this.createLivroForm.reset();
+    this.inicialize();
   }
   limpaLivro() {
    
     this.createLivroForm.reset();
+    this.inicialize();
   }
 
   onItemSelect(item: any) {

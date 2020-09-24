@@ -51,7 +51,7 @@ namespace Base.Infra.Contextos
             catch (Exception ex)
             {
                 RollBack();
-                throw new Exception(ex.Message);
+                throw ex;
             }
         }
 

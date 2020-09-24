@@ -15,6 +15,7 @@ import { CrudAssuntoComponent } from './assunto/crud-assunto/crud-assunto.compon
 import { ListAssuntoComponent } from './assunto/list-assunto/list-assunto.component';
 import { HttpErrorInterceptor } from './interceptors/error.interceptor';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { CurrencyMaskModule } from "ng2-currency-mask";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     FormsModule,
     ReactiveFormsModule,
     NgMultiSelectDropDownModule.forRoot(),
-    CommonModule
+    CommonModule,
+    CurrencyMaskModule
   ],
   providers: [LivroService, {
     provide: HTTP_INTERCEPTORS,

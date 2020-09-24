@@ -6,6 +6,7 @@ export class Livro {
   titulo: string;
   editora: string;
   edicao: number;
+  preco: number;
   anoPublicacao: string;
   autors: Autor[];
   assuntos: Assunto[]
