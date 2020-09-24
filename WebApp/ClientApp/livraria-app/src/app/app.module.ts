@@ -17,6 +17,7 @@ import { HttpErrorInterceptor } from './interceptors/error.interceptor';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
+import { ReportAutorComponent } from './autor/report-autor/report-autor.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
     ListAutorComponent,
     CrudAutorComponent,
     CrudAssuntoComponent,
-    ListAssuntoComponent
+    ListAssuntoComponent,
+    ReportAutorComponent
   ],
   imports: [
     BrowserModule,
