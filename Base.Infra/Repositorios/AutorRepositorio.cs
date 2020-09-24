@@ -4,6 +4,7 @@ using Base.Infra.Contextos;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Base.Infra.Repositorios
 {
@@ -13,5 +14,14 @@ namespace Base.Infra.Repositorios
             : base(contexto)
         {
         }
+        public dynamic Report()
+        {
+           return  contexto.Autors.Select(s => new
+            {
+                s.Nome,
+                Livros = s.LivroAutors.Select(ls => ls.Livro)
+            }).ToList();
+        }
+       
     }
 }

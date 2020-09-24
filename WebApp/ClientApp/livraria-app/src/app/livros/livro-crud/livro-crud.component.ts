@@ -13,6 +13,7 @@ import * as alertify from 'alertifyjs';
 import { ENGINE_METHOD_ALL } from 'constants';
 import { map, debounce } from 'rxjs/operators';
 import { Assunto } from 'src/app/model/assunto';
+import { Item } from 'src/app/model/item';
 
 
 
@@ -33,61 +34,75 @@ export class LivroCrudComponent implements OnInit {
   assuntos: Assunto[];
   autor: Autor;
   assunto: Assunto;
+  item: Item;
 
   dropdownListAutors = [];
   dropdownListAssuntos = [];
   selectedItemsAutors = [];
-  selectedItemsAutors = [];
+  selectedItemsAssuntos = [];
   dropdownSettings: IDropdownSettings;
  
   bindDrop() {
 
-    
+   
     
     this._assuntoService.getAssuntos().subscribe(l => {
       this.assuntos = l;
       this.dropdownListAssuntos = l.map(s => {
-        var teste = {};
-        teste.item_id = s.id;
-        teste.item_text = s.descricao;
-        return teste;
+        this.item = {
+          item_id: 0,
+          item_text: null
+        }
+        this.item.item_id = s.id;
+        this.item.item_text = s.descricao;
+        return this.item;
       });
 
     });
     this._autorService.getAutors().subscribe(l => {
       this.autors = l;
       this.dropdownListAutors = l.map(s => {
-        var teste = {};
-        teste.item_id = s.id;
-        teste.item_text = s.nome;
-        return teste;
+        this.item = {
+          item_id: 0,
+          item_text: null
+        }
+        this.item.item_id = s.id;
+        this.item.item_text = s.nome;
+        return this.item;
       });
 
     });
     
-   
+    
   }
 
   bindAutor() {
     this.selectedItemsAutors = this.livro.autors.map(s => {
-      var teste = {};
-      teste.item_id = s.id;
-      teste.item_text = s.nome;
-      return teste;
+      this.item = {
+        item_id: 0,
+        item_text: null
+      }
+      this.item.item_id = s.id;
+      this.item.item_text = s.nome;
+      return this.item;
     });
     
   }
 
   bindAssunto() {
     this.selectedItemsAssuntos = this.livro.assuntos.map(s => {
-      var teste = {};
-      teste.item_id = s.id;
-      teste.item_text = s.descricao;
-      return teste;
+      this.item = {
+        item_id: 0,
+        item_text: null
+      }
+      this.item.item_id = s.id;
+      this.item.item_text = s.descricao;
+      return this.item;
     });
   }
 
   inicialize() {
+    
     this._route.paramMap.subscribe(param => {
       this.livro = {
         id: 0,

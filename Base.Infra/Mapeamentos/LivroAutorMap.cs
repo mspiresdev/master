@@ -24,7 +24,7 @@ namespace Base.Infra.Mapeamentos
                 .HasForeignKey("Autor_Id")
                 .IsRequired();
 
-
+           
         }
        
     }

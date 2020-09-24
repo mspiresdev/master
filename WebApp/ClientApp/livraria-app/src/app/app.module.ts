@@ -16,6 +16,7 @@ import { ListAssuntoComponent } from './assunto/list-assunto/list-assunto.compon
 import { HttpErrorInterceptor } from './interceptors/error.interceptor';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { CurrencyMaskModule } from "ng2-currency-mask";
+import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
   ],
   imports: [
     BrowserModule,
-    
+    ReportViewerModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

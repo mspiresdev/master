@@ -11,10 +11,16 @@ namespace Base.Aplicacao.Servicos
 {
     public class AutorApp : ServicoAppBase<Autor, AutorDTO>, IAutorApp
     {
+        IAutorServico _servico;
         public AutorApp(IMapper iMapper, IAutorServico servico)
             : base(iMapper, servico)
         {
+            _servico = servico;
+        }
 
+        public dynamic Report()
+        {
+            return _servico.Report();
         }
     }
 }

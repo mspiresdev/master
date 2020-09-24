@@ -13,8 +13,24 @@ namespace Base.Web.Controllers
 {
     public class AutorController : ControllerBase<Autor, AutorDTO>
     {
+        IAutorApp _app;
         public AutorController(IAutorApp app)
             : base(app)
-        { }
+        {
+            _app = app;
+        }
+        [Route("report")]
+        public IActionResult Report()
+        {
+            try
+            {
+                
+                return new OkObjectResult(_app.Report());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

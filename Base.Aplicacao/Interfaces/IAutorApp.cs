@@ -8,6 +8,6 @@ namespace Base.Aplicacao.Interfaces
 {
     public interface IAutorApp : IAppBase<Autor, AutorDTO>
     {
-
+        dynamic Report();
     }
 }

@@ -7,6 +7,6 @@ namespace Base.Domain.Intefaces.Servicos
 {
     public interface IAutorServico : IServicoBase<Autor>
     {
-
+        dynamic Report();
     }
 }

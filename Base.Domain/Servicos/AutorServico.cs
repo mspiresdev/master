@@ -9,10 +9,16 @@ namespace Base.Domain.Servicos
 {
     public class AutorServico : ServicoBase<Autor>, IAutorServico
     {
+        IAutorRepositorio _repositorio;
         public AutorServico(IAutorRepositorio repositorio)
             : base(repositorio)
         {
+            _repositorio = repositorio;
+        }
 
+        public dynamic Report()
+        {
+           return _repositorio.Report();
         }
     }
 }

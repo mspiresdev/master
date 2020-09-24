@@ -7,6 +7,6 @@ namespace Base.Domain.Intefaces.Repositorios
 {
     public interface IAutorRepositorio : IRepositorioBase<Autor>
     {
-
+        dynamic Report();
     }
 }
