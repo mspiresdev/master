@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AutorService } from '../../service/autor.service';
+import { Autor } from '../../model/autor';
+import * as alertify from 'alertifyjs';
 
 @Component({
   selector: 'app-report-autor',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportAutorComponent implements OnInit {
 
-  constructor() { }
+  autors: Autor[];
+  constructor(private _autorService: AutorService) { }
 
   ngOnInit(): void {
+    this._autorService.getAutorsReport().subscribe(l => {
+      this.autors = l as Autor[]
+
+    });
   }
 
 }
