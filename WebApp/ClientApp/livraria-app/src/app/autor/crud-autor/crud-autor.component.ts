@@ -24,7 +24,8 @@ export class CrudAutorComponent implements OnInit {
     this._route.paramMap.subscribe(param => {
       this.autor = {
         id: 0,
-        nome: null
+        nome: null,
+        livros: []
       }
       const id = +param.get('id');
       if (id !== 0) {

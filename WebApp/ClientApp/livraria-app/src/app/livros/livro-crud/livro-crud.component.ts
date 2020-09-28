@@ -203,7 +203,8 @@ export class LivroCrudComponent implements OnInit {
     
     this.autor = {
       id: item.item_id,
-      nome: item.item_text
+      nome: item.item_text,
+      livros:[]
     }
     this.livro.autors.push(this.autor);
 
@@ -212,7 +213,8 @@ export class LivroCrudComponent implements OnInit {
   onItemDeSelectAutors(item: any) {
     this.autor = {
       id: item.item_id,
-      nome: item.item_text
+      nome: item.item_text,
+      livros: []
     }
     for (var i = 0; i < this.livro.autors.length; i++)
     {
