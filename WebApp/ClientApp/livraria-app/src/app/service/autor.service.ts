@@ -21,6 +21,10 @@ export class AutorService {
     return this._httpClient.get<Autor[]>(this.urlBase + 'autor');
   }
 
+  getAutorsReport(): Observable<Autor[]> {
+    return this._httpClient.get<Autor[]>(this.urlBase + 'autor/report');
+  }
+
   getAutor(id: number): Observable<Autor> {
     return this._httpClient.get<Autor>(this.urlBase + 'autor/' + id);
   }

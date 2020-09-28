@@ -46,7 +46,7 @@
 
   <div class="form-group">
     <label for="edicao">Preço:</label>
-    <input type="preco" currencyMask [(ngModel)]="livro.preco" class="form-control" id="preco" name="preco"
+    <input type="text" currencyMask [(ngModel)]="livro.preco" class="form-control" id="preco" name="preco"
            required
            #preco="ngModel">
     <div *ngIf="preco.invalid && (preco.dirty || preco.touched)"
